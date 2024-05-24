@@ -1,0 +1,338 @@
+openapi: 3.0.0
+paths:
+  /api/users:
+    get:
+      operationId: UsersController_index
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsersEntity'
+      tags:
+        - users
+    post:
+      operationId: UsersController_store
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersEntity'
+      tags:
+        - users
+  /api/users/{id}:
+    get:
+      operationId: UsersController_show
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersEntity'
+      tags:
+        - users
+    put:
+      operationId: UsersController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersEntity'
+      tags:
+        - users
+    delete:
+      operationId: UsersController_destroy
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+        - users
+  /api/auth/login:
+    post:
+      operationId: AuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Token'
+      tags:
+        - auth
+  /api/movies:
+    get:
+      operationId: MoviesController_index
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MoviesEntity'
+      tags:
+        - movies
+    post:
+      operationId: MoviesController_store
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoviesEntity'
+      tags:
+        - movies
+  /api/movies/{id}:
+    get:
+      operationId: MoviesController_show
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoviesEntity'
+      tags:
+        - movies
+    put:
+      operationId: MoviesController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoviesEntity'
+      tags:
+        - movies
+    delete:
+      operationId: MoviesController_destroy
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+        - movies
+info:
+  title: Catálogo de Filmes
+  description: Cadastro de filmes com autenticação de usuários em jwt
+  version: '1.0'
+  contact: {}
+tags:
+  - name: users
+    description: ''
+servers: []
+components:
+  schemas:
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: douglas@teste.com
+        password:
+          type: string
+          example: Passw0rd!
+    Token:
+      properties:
+        token:
+          type: string
+          example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5YTI5MjlkMS01ZWJiLTRjNWYtOGExOS00YWE0MTk4ZjJlN2UiLCJlbWFpbCI6ImRvdWdsYXNAdGVzdGUuY29tIiwiaWF0IjoxNzE2NTU3NzA1LCJleHAiOjE3MTY1NzIxMDV9.vF2ahH2ILD-JHumT8eqDCdhSguNfLjcKvJyUxdRZC5U'
+    UsersEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 9a2929d1-5ebb-4c5f-8a19-4aa4198f2e7e
+        firstName:
+          type: string
+          example: Douglas
+        lastName:
+          type: string
+          example: Joaquim
+        email:
+          type: string
+          example: douglas@teste.com
+        password:
+          type: string
+          description: A senha deve conter caracteres maiúsculos, minúsculos, números e caracteres especiais
+          example: "$2b$10$WbDOAXeQZ4PjSkwNsZupee8qpZNBokbULA1JgpHi18Kbw0aIr1Ixq"
+        createdAt:
+          type: string
+          example: '2024-05-22T20:26:29.797Z'
+        updatedAt:
+          type: string
+          example: '2024-05-22T20:26:29.797Z'
+        deletedAt:
+          type: string
+          example: '2024-05-22T20:26:29.797Z'
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - password
+        - createdAt
+        - updatedAt
+        - deletedAt
+    CreateUserDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Douglas
+        lastName:
+          type: string
+          example: Joaquim
+        email:
+          type: string
+          example: douglas@teste.com
+        password:
+          type: string
+          description: A senha deve conter caracteres maiúsculos, minúsculos, números e caracteres especiais
+          example: Passw0rd!
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+    UpdateUserDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Douglas
+        lastName:
+          type: string
+          example: Joaquim
+      required:
+        - firstName
+        - lastName
+    MoviesEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 9a2929d1-5ebb-4c5f-8a19-4aa4198f2e7e
+        title:
+          type: string
+          example: Die Hard
+        genre:
+          type: string
+          example: Action
+        year:
+          type: number
+          example: 1998
+        createdAt:
+          type: string
+          example: '2024-05-22T20:26:29.797Z'
+        updatedAt:
+          type: string
+          example: '2024-05-22T20:26:29.797Z'
+        deletedAt:
+          type: string
+          example: '2024-05-22T20:26:29.797Z'
+      required:
+        - id
+        - title
+        - genre
+        - year
+        - createdAt
+        - updatedAt
+        - deletedAt
+    MovieDto:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Die Hard
+        genre:
+          type: string
+          example: Action
+        year:
+          type: number
+          example: 1998
+      required:
+        - title
+        - genre
+        - year
